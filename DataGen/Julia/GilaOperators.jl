@@ -23,7 +23,7 @@ end
 function GreensOperator(cells::NTuple{3, Int}, scale::NTuple{3, Rational{Int}}, coord::NTuple{3, Rational{Int}}; use_gpu::Bool=false)
 	options = GlaKerOpt(use_gpu)
 	self_volume = GlaVol(cells, scale, coord)
-	filename = "preload/$(cells[1])x$(cells[2])x$(cells[3])_$(float(scale[1]))x$(float(scale[2]))x$(float(scale[3]))@$(float(coord[1])),$(float(coord[2])),$(float(coord[3])).fur"
+	filename = "./DataGen/preload/$(cells[1])x$(cells[2])x$(cells[3])_$(float(scale[1]))x$(float(scale[2]))x$(float(scale[3]))@$(float(coord[1])),$(float(coord[2])),$(float(coord[3])).fur"
 	if isfile(filename)
 		fourier = deserialize(filename)
 		self_mem = GlaOprMem(options, self_volume, egoFur=fourier, setType=ComplexF64)
@@ -72,7 +72,7 @@ Base.size(op::LippmannSchwinger, ::Int) = prod(op.self_mem.trgVol.cel)*3
 function LippmannSchwinger(cells::AbstractVector{Int}, scale::NTuple{3, Rational{Int}}, coord::NTuple{3, Rational{Int}}, medium::AbstractArray{ComplexF64, 4}; use_gpu::Bool=false)
 	options = GlaKerOpt(use_gpu)
 	self_volume = GlaVol(cells, scale, coord)
-	filename = "../preload/$(cells[1])x$(cells[2])x$(cells[3])_$(float(scale[1]))x$(float(scale[2]))x$(float(scale[3]))@$(float(coord[1])),$(float(coord[2])),$(float(coord[3])).fur"
+	filename = "./DataGen/preload/$(cells[1])x$(cells[2])x$(cells[3])_$(float(scale[1]))x$(float(scale[2]))x$(float(scale[3]))@$(float(coord[1])),$(float(coord[2])),$(float(coord[3])).fur"
 	if isfile(filename)
 		fourier = deserialize(filename)
 		self_mem = GlaOprMem(options, self_volume, egoFur=fourier, setType=ComplexF64)

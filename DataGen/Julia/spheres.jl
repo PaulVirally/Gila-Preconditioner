@@ -32,7 +32,7 @@ function create_random_medium(cells::AbstractVector{Int}, num_spheres::Int, susc
 	medium = zeros(ComplexF64, cells..., 1)
     for _ in 1:num_spheres
 		center = rand(3) .* cells
-		radius = rand() * minimum(cells) / 4
+		radius = rand() * maximum(cells)
 		chi = rand(susceptibilities)
         place_sphere!(medium, center, radius, chi)
 	end
